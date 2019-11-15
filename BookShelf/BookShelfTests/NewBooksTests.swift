@@ -52,6 +52,23 @@ class NewBooksTests: QuickSpec {
           expect(self.router?.pushDetailCalled).to(beTrue())
         }
       }
+      
+      context("when valid url link was clicked") {
+        it("should hand over to its router") {
+          let url = URL(string: "https://google.com")!
+          self.presenter.didClickOnLink(url, from: nil)
+          expect(self.router?.pushLinkCalled).to(beTrue())
+        }
+      }
+      
+      context("when invalid link was clicked") {
+        it("should signal view about the result") {
+          let url = URL(string: "testlink")!
+          self.presenter.didClickOnLink(url, from: nil)
+          expect(self.router?.pushLinkCalled).to(beTrue())
+          expect(self.view?.didErrorCalled).to(beTrue())
+        }
+      }
     }
     
     describe("Interactor") {
@@ -90,6 +107,7 @@ extension NewBooksTests {
   
   class NewBooksMockRouter: NewBooksRouterProtocol {
     var pushDetailCalled = false
+    var pushLinkCalled = false
     
     static func createModule() -> NewBooksView {
       return NewBooksView()
@@ -97,6 +115,16 @@ extension NewBooksTests {
     
     func pushDetail(with book: Book, from view: UIViewController?) {
       self.pushDetailCalled = true
+    }
+    
+    func pushLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?) {
+      self.pushLinkCalled = true
+      guard UIApplication.shared.canOpenURL(url) else {
+        completion?(false)
+        return
+      }
+      
+      completion?(true)
     }
   }
 }

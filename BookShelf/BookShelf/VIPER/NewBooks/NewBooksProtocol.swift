@@ -22,6 +22,7 @@ protocol NewBooksPresenterProtocol: class {
   
   func fetch()
   func didClickOnBook(_ book: Book, from view: UIViewController?)
+  func didClickOnLink(_ url: URL, from view: UIViewController?)
 }
 
 protocol NewBooksInteractorProtocol: class {
@@ -34,4 +35,5 @@ protocol NewBooksRouterProtocol: class {
   static func createModule() -> NewBooksView
   
   func pushDetail(with book: Book, from view: UIViewController?)
+  func pushLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?)
 }

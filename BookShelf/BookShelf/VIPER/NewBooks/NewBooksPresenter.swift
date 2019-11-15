@@ -7,17 +7,36 @@
 //
 
 import UIKit
+import RxSwift
+import RxSwiftExt
 
 class NewBooksPresenter: NewBooksPresenterProtocol {
   weak var view: NewBooksViewProtocol?
   var interactor: NewBooksInteractorProtocol?
   var router: NewBooksRouterProtocol?
   
+  var disposeBag = DisposeBag()
+  
   func fetch() {
-    
+    self.interactor?
+      .fetch()
+      .subscribe(onNext: { [weak self] (books) in
+        self?.view?.display(books: books)
+      }, onError: { [weak self] (error) in
+        self?.view?.displayError(error)
+      }).disposed(by: self.disposeBag)
   }
   
   func didClickOnBook(_ book: Book, from view: UIViewController?) {
-    
+    self.router?.pushDetail(with: book, from: view)
+  }
+  
+  func didClickOnLink(_ url: URL, from view: UIViewController?) {
+    self.router?.pushLink(with: url, from: view, completion: { (completed) in
+      if !completed {
+        //signal to view
+        self.view?.displayError(NSError(domain:"", code:500, userInfo:nil))
+      }
+    })
   }
 }

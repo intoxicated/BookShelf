@@ -7,6 +7,9 @@
 //
 
 import ObjectMapper
+import RxSwift
+import Alamofire
+import SwiftyJSON
 
 struct Book: Product {
   var authors: String?
@@ -68,5 +71,37 @@ extension Book: Equatable {
       lhs.type == rhs.type &&
       lhs.url == rhs.url &&
       lhs.year == rhs.year
+  }
+}
+
+extension Book {
+  func getDetail() -> Observable<Book?> {
+    return .just(nil)
+  }
+  
+  static func getNews() -> Observable<[Book]> {
+    return Observable.create { (subscriber) -> Disposable in
+      let req = Alamofire.request(RestService.GetNewBooks)
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
+          switch response.result {
+          case .success(let data):
+            let json = SwiftyJSON.JSON(data)
+            let books = Mapper<Book>().mapArray(JSONObject: json["books"].object) ?? []
+            subscriber.onNext(books)
+            subscriber.onCompleted()
+          case .failure(let error):
+            subscriber.onError(error)
+          }
+        }
+      
+      return Disposables.create {
+        req.cancel()
+      }
+    }
+  }
+  
+  static func search(with keyword: String, page: Int) -> Observable<[Book]> {
+    return .just([])
   }
 }

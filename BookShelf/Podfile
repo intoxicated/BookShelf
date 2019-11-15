@@ -14,6 +14,9 @@ target 'BookShelf' do
   pod 'SnapKit'
   pod 'SwiftyJSON'
   pod 'ObjectMapper'
+  pod 'Then'
+  pod 'Reusable'
+  pod 'ActiveLabel'
 
   target 'BookShelfTests' do
     inherit! :search_paths
