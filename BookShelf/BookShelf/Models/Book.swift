@@ -12,22 +12,22 @@ import Alamofire
 import SwiftyJSON
 
 struct Book: Product {
-  var authors: String?
-  var desc: String?
+  var authors: String? //basic
+  var desc: String? //detail
   var error: String?
-  var image: String?
-  var isbn10: String?
-  var isbn13: String?
-  var pages: Int?
-  var pdf: [String: String]?
-  var price: String?
-  var publisher: String?
-  var rating: String?
-  var subtitle: String?
-  var title: String?
+  var image: URL?
+  var isbn10: String? //detail
+  var isbn13: String? //detail
+  var pages: Int? //detail
+  var pdf: [String: URL?]? //misc
+  var price: String? //detail
+  var publisher: String? //detail
+  var rating: Double? //basic
+  var subtitle: String? //basic
+  var title: String? //basic
   var type: ProductType = .book
-  var url: String?
-  var year: String?
+  var url: URL? //misc
+  var year: String? //basic
 }
 
 extension Book: Mappable {
@@ -37,18 +37,18 @@ extension Book: Mappable {
     authors      <- map["authors"]
     desc         <- map["desc"]
     error        <- map["error"]
-    image        <- map["image"]
+    image        <- (map["image"], OMStringToUrlTransform())
     isbn10       <- map["isbn10"]
     isbn13       <- map["isbn13"]
-    pages        <- map["pages"]
-    pdf          <- map["pdf"]
+    pages        <- (map["pages"], OMStringToIntTransform())
+    pdf          <- (map["pdf"], OMStringDictToUrlTransform())
     price        <- map["price"]
     publisher    <- map["publisher"]
-    rating       <- map["rating"]
+    rating       <- (map["rating"], OMStringToDoubleTransform())
     subtitle     <- map["subtitle"]
     title        <- map["title"]
     type         <- map["type"]
-    url          <- map["url"]
+    url          <- (map["url"], OMStringToUrlTransform())
     year         <- map["year"]
   }
 }
@@ -76,7 +76,28 @@ extension Book: Equatable {
 
 extension Book {
   func getDetail() -> Observable<Book?> {
-    return .just(nil)
+    guard let isbn13 = self.isbn13 else {
+      return .just(nil)
+    }
+    return Observable.create { (subscriber) -> Disposable in
+      let req = Alamofire
+        .request(RestService.GetBookDetail(isbn13))
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
+          switch response.result {
+          case .success(let data):
+            let json = SwiftyJSON.JSON(data)
+            let book = Mapper<Book>().map(JSONObject: json.object)
+            subscriber.onNext(book)
+            subscriber.onCompleted()
+          case .failure(let error):
+            subscriber.onError(error)
+          }
+        }
+      return Disposables.create {
+        req.cancel()
+      }
+    }
   }
   
   static func getNews() -> Observable<[Book]> {

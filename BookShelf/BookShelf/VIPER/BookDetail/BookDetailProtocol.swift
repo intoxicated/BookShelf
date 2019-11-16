@@ -10,7 +10,7 @@ import RxSwift
 protocol BookDetailViewProtocol: class {
   var presenter: BookDetailPresenterProtocol? { get set }
   
-  func display(books: [Book])
+  func display(book: Book)
   func displayError(_ error: Error)
 }
 
@@ -19,16 +19,19 @@ protocol BookDetailPresenterProtocol: class {
   var interactor: BookDetailInteractorProtocol? { get set }
   var router: BookDetailRouterProtocol? { get set }
   
-  func viewDidLoad()
   func fetch()
+  func didClickOnLink(_ url: URL, from view: UIViewController?)
 }
 
 protocol BookDetailInteractorProtocol: class {
   var presenter: BookDetailPresenterProtocol? { get set }
+  var book: Book? { get set }
   
-  func fetch() -> Observable<[Book]>
+  func fetch() -> Observable<Book?>
 }
 
 protocol BookDetailRouterProtocol: class {
-  static func createModule(with book: Book) -> UIViewController
+  static func createModule(with book: Book) -> BookDetailView
+  
+  func presentLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?)
 }

@@ -6,10 +6,12 @@
 //  Copyright © 2019 intoxicated. All rights reserved.
 //
 
+import RxSwift
 import UIKit
 
 class BaseViewController: UIViewController {
   private(set) var didSetupConstraints = false
+  private(set) var disposeBag = DisposeBag()
   
   init() {
     super.init(nibName: nil, bundle: nil)
