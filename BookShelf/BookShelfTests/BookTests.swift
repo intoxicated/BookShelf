@@ -58,8 +58,8 @@ class BookTests: QuickSpec {
           expect(book?.title).to(equal("Designing Across Senses"))
           expect(book?.price).to(equal("$27.59"))
           expect(book?.isbn13).to(equal("9781491954249"))
-          expect(book?.image).to(equal("https://itbook.store/img/books/9781491954249.png"))
-          expect(book?.url).to(equal("https://itbook.store/books/9781491954249"))
+          expect(book?.image?.absoluteString).to(equal("https://itbook.store/img/books/9781491954249.png"))
+          expect(book?.url?.absoluteString).to(equal("https://itbook.store/books/9781491954249"))
         }
       }
     }

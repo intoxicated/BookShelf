@@ -14,19 +14,30 @@ class StringExtensionTests: QuickSpec {
     describe("isValidCurrency") {
       context("when a string has content that can be convertable as currency") {
         it("should return true") {
-          
+          expect("$10".isValidCurrency).to(beTrue())
+          expect("R143".isValidCurrency).to(beTrue())
+          expect("₩10000".isValidCurrency).to(beTrue())
         }
       }
       
       context("when a string has content that is missing identifier") {
         it("should return false") {
-          
+          let test = "10"
+          expect(test.isValidCurrency).to(beFalse())
+        }
+      }
+      
+      context("when a string has content that is invalid symbol") {
+        it("should return false") {
+          let test = "%10"
+          expect(test.isValidCurrency).to(beFalse())
         }
       }
       
       context("when a string has content that cannot be convertable to Double") {
         it("should return false") {
-          
+          let test = "$10c"
+          expect(test.isValidCurrency).to(beFalse())
         }
       }
     }
