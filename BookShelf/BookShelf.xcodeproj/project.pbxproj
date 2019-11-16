@@ -43,6 +43,8 @@
 		2211ABB0237F13340086C56F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211AB93237EEFB10086C56F /* APIService.swift */; };
 		2211ABB2237F180E0086C56F /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211ABB1237F180D0086C56F /* BookTableViewCell.swift */; };
 		2211ABB6237F243F0086C56F /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211ABB1237F180D0086C56F /* BookTableViewCell.swift */; };
+		2272FC8F238032AA005A00D3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272FC8E238032AA005A00D3 /* UIView+Extensions.swift */; };
+		2272FC912380337E005A00D3 /* ZoomInOutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272FC902380337E005A00D3 /* ZoomInOutAnimator.swift */; };
 		22A8BD5723801FED00E01CBD /* BookDetailCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD5623801FED00E01CBD /* BookDetailCellModel.swift */; };
 		22A8BD592380204900E01CBD /* BookBasicCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD582380204900E01CBD /* BookBasicCellModel.swift */; };
 		22A8BD5B2380236500E01CBD /* BookMiscCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD5A2380236500E01CBD /* BookMiscCell.swift */; };
@@ -102,6 +104,8 @@
 		2211ABA2237EFD030086C56F /* NewBooksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBooksRouter.swift; sourceTree = "<group>"; };
 		2211ABAB237F0ECC0086C56F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2211ABB1237F180D0086C56F /* BookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
+		2272FC8E238032AA005A00D3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		2272FC902380337E005A00D3 /* ZoomInOutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomInOutAnimator.swift; sourceTree = "<group>"; };
 		22A8BD5623801FED00E01CBD /* BookDetailCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailCellModel.swift; sourceTree = "<group>"; };
 		22A8BD582380204900E01CBD /* BookBasicCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBasicCellModel.swift; sourceTree = "<group>"; };
 		22A8BD5A2380236500E01CBD /* BookMiscCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMiscCell.swift; sourceTree = "<group>"; };
@@ -289,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				2211AB7E237EEB1A0086C56F /* String+Extensions.swift */,
+				2272FC8E238032AA005A00D3 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 		22B56CA7237FC4BE00C430A9 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				2272FC902380337E005A00D3 /* ZoomInOutAnimator.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -577,6 +583,7 @@
 				2211ABA3237EFD030086C56F /* NewBooksRouter.swift in Sources */,
 				2211AB8A237EEB1A0086C56F /* Product.swift in Sources */,
 				22B56C9C237FBA6700C430A9 /* BookDetailPresenter.swift in Sources */,
+				2272FC8F238032AA005A00D3 /* UIView+Extensions.swift in Sources */,
 				2211AB85237EEB1A0086C56F /* NewBooksProtocol.swift in Sources */,
 				22B56C9A237FBA5F00C430A9 /* BookDetailView.swift in Sources */,
 				22A8BD5723801FED00E01CBD /* BookDetailCellModel.swift in Sources */,
@@ -584,6 +591,7 @@
 				22B56C9E237FBA7000C430A9 /* BookDetailInteractor.swift in Sources */,
 				22B56CA92380113500C430A9 /* BookBasicCell.swift in Sources */,
 				2211AB89237EEB1A0086C56F /* Book.swift in Sources */,
+				2272FC912380337E005A00D3 /* ZoomInOutAnimator.swift in Sources */,
 				2211AB87237EEB1A0086C56F /* MainTabBarController.swift in Sources */,
 				22B56CB123801BF100C430A9 /* BookDetailCell.swift in Sources */,
 				2211AB86237EEB1A0086C56F /* SearchBooksProtocol.swift in Sources */,

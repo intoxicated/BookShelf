@@ -8,9 +8,10 @@
 
 import UIKit
 
-class BookDetailView: BaseViewController {
+class BookDetailView: BaseViewController, ZoomInOutAnimatable {
   var presenter: BookDetailPresenterProtocol?
   var book: Book!
+  var targetView: UIView?
   
   private enum Row: Int {
     case basicInfo
@@ -37,7 +38,7 @@ class BookDetailView: BaseViewController {
     self.initViews()
     self.presenter?.fetch()
   }
-  
+
   func initNavigationView() {
     if #available(iOS 13.0, *) {
       let navBarAppearance = UINavigationBarAppearance()
@@ -56,7 +57,7 @@ class BookDetailView: BaseViewController {
       UINavigationBar.appearance().barTintColor = .white
       UINavigationBar.appearance().isTranslucent = false
     }
-    
+
     self.navigationItem.title = "Details"
   }
   
@@ -75,11 +76,12 @@ class BookDetailView: BaseViewController {
         completed: nil
       )
       imageView.frame = CGRect(
-        x: 0, y: 0,
+        x: 0, y: 88,
         width: self.view.bounds.width,
         height: 400
       )
-      self.tableView.tableHeaderView = imageView
+      self.targetView = imageView
+      self.tableView.tableHeaderView = self.targetView
     }
   }
   
@@ -87,10 +89,7 @@ class BookDetailView: BaseViewController {
     super.setupConstraints()
     
     self.tableView.snp.makeConstraints { (make) in
-      make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
-      make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+      make.edges.equalToSuperview()
     }
   }
 }

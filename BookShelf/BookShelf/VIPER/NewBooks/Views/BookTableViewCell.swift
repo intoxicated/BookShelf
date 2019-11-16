@@ -23,7 +23,7 @@ class BookTableViewCell: BaseTableViewCell {
     $0.font = UIFont.systemFont(ofSize: 13)
     $0.textColor = .gray
   }
-  private let bookImageView = UIImageView().then {
+  let bookImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
   }
   private let priceLabel = UILabel().then {

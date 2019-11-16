@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class NewBooksView: BaseViewController {
+class NewBooksView: BaseViewController, ZoomInOutAnimatable {
   var presenter: NewBooksPresenterProtocol?
   
   private let tableView = UITableView().then {
@@ -18,6 +18,7 @@ class NewBooksView: BaseViewController {
   }
   
   private var books: [Book] = []
+  var targetView: UIView?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -59,6 +60,7 @@ class NewBooksView: BaseViewController {
     
     self.title = "New"
     self.navigationItem.title = "New Books"
+    self.navigationController?.delegate = self
   }
   
   func initViews() {
@@ -106,7 +108,21 @@ extension NewBooksView: UITableViewDataSource, UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let cell = tableView.cellForRow(at: indexPath) as! BookTableViewCell
+    self.targetView = cell.bookImageView
     self.presenter?.didClickOnBook(self.books[indexPath.row], from: self)
     tableView.deselectRow(at: indexPath, animated: true)
+  }
+}
+
+extension NewBooksView: UINavigationControllerDelegate {
+  func navigationController(
+    _ navigationController: UINavigationController,
+    animationControllerFor operation: UINavigationController.Operation,
+    from fromVC: UIViewController,
+    to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    let animator = ZoomInOutAnimator()
+    animator.isPresenting = operation == .push
+    return animator
   }
 }
