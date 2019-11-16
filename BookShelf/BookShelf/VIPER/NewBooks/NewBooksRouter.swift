@@ -25,10 +25,14 @@ class NewBooksRouter: NewBooksRouterProtocol {
   }
   
   func pushDetail(with book: Book, from view: UIViewController?) {
-    //push book detail
+    let detail = BookDetailRouter.createModule(with: book)
+    view?.navigationController?.pushViewController(detail, animated: true)
   }
   
-  func pushLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())? = nil) {
+  func presentLink(
+    with url: URL,
+    from view: UIViewController?,
+    completion: ((Bool) -> ())? = nil) {
     guard UIApplication.shared.canOpenURL(url) else {
       completion?(false)
       return

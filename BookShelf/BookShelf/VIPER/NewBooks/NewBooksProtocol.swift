@@ -35,5 +35,5 @@ protocol NewBooksRouterProtocol: class {
   static func createModule() -> NewBooksView
   
   func pushDetail(with book: Book, from view: UIViewController?)
-  func pushLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?)
+  func presentLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?)
 }

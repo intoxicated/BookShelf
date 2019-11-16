@@ -32,10 +32,9 @@ class NewBooksPresenter: NewBooksPresenterProtocol {
   }
   
   func didClickOnLink(_ url: URL, from view: UIViewController?) {
-    self.router?.pushLink(with: url, from: view, completion: { (completed) in
+    self.router?.presentLink(with: url, from: view, completion: { (completed) in
       if !completed {
-        //signal to view
-        self.view?.displayError(NSError(domain:"", code:500, userInfo:nil))
+        self.view?.displayError(BSError.linkError)
       }
     })
   }

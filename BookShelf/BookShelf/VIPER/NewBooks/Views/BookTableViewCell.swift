@@ -14,9 +14,7 @@ import SDWebImage
 import Then
 import UIKit
 
-class NewBooksTableViewCell: UITableViewCell, Reusable {
-  private static var imageWidth: CGFloat = 0
-  
+class BookTableViewCell: BaseTableViewCell {
   private let titleLabel = UILabel().then {
     $0.font = UIFont.boldSystemFont(ofSize: 17)
     $0.textColor = .black
@@ -48,17 +46,7 @@ class NewBooksTableViewCell: UITableViewCell, Reusable {
   
   private var urlTapSignal = PublishSubject<URL>()
   
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    self.initialize()
-    self.setLayouts()
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  func initialize() {
+  override func initialize() {
     self.contentView.addSubview(self.bookImageView)
     self.stackView.addArrangedSubview(self.titleLabel)
     self.stackView.addArrangedSubview(self.subtitleLabel)
@@ -72,7 +60,7 @@ class NewBooksTableViewCell: UITableViewCell, Reusable {
     }
   }
   
-  func setLayouts() {
+  override func setLayouts() {
     self.bookImageView.snp.makeConstraints { (make) in
       make.leading.equalToSuperview()
       make.top.equalToSuperview()
@@ -88,17 +76,16 @@ class NewBooksTableViewCell: UITableViewCell, Reusable {
     }
   }
   
-  func configure(book: Book) {
-    self.titleLabel.text = book.title
-    self.subtitleLabel.text = book.subtitle
-    self.priceLabel.text = book.price
-    self.isbn13Label.text = book.isbn13
-    self.urlLabel.text = book.url
+  func configure(with model: BookTableViewCellModel) {
+    self.titleLabel.text = model.title
+    self.subtitleLabel.text = model.subtitle
+    self.priceLabel.text = model.price
+    self.isbn13Label.text = model.isbn13
+    self.urlLabel.text = model.url
     
-    if let imageUrlString = book.image,
-      let url = URL(string: imageUrlString) {
+    if let imageUrl = model.imageUrl {
       self.bookImageView.sd_setImage(
-        with: url,
+        with: imageUrl,
         placeholderImage: UIImage(named: "placeholder"),
         options: .retryFailed,
         context: nil

@@ -105,7 +105,7 @@ extension NewBooksTests {
     }
   }
   
-  class NewBooksMockRouter: NewBooksRouterProtocol {
+  class NewBooksMockRouter: NewBooksRouterProtocol {    
     var pushDetailCalled = false
     var pushLinkCalled = false
     
@@ -117,7 +117,7 @@ extension NewBooksTests {
       self.pushDetailCalled = true
     }
     
-    func pushLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?) {
+    func presentLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?) {
       self.pushLinkCalled = true
       guard UIApplication.shared.canOpenURL(url) else {
         completion?(false)
