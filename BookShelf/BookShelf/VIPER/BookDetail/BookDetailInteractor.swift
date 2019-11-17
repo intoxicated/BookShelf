@@ -9,7 +9,6 @@
 import RxSwift
 
 class BookDetailInteractor: BookDetailInteractorProtocol {
-  var presenter: BookDetailPresenterProtocol?
   var book: Book?
   
   func fetch() -> Observable<Book?> {

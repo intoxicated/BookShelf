@@ -26,7 +26,6 @@ protocol BookDetailPresenterProtocol: class {
 }
 
 protocol BookDetailInteractorProtocol: class {
-  var presenter: BookDetailPresenterProtocol? { get set }
   var book: Book? { get set }
   
   func fetch() -> Observable<Book?>

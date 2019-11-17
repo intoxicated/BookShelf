@@ -9,15 +9,22 @@
 import UIKit
 
 class BookDetailCell: BaseTableViewCell {
-  private let priceLabel = UILabel()
+  private let priceLabel = UILabel().then {
+    $0.font = UIFont.systemFont(ofSize: 14)
+  }
   private let publisherLabel = UILabel().then {
+    $0.font = UIFont.systemFont(ofSize: 14)
     $0.numberOfLines = 0
   }
-  private let pageLabel = UILabel()
+  private let pageLabel = UILabel().then {
+    $0.font = UIFont.systemFont(ofSize: 14)
+  }
   private let isbnsLabel = UILabel().then {
+    $0.font = UIFont.systemFont(ofSize: 14)
     $0.numberOfLines = 0
   }
   private let descLabel = UILabel().then {
+    $0.font = UIFont.systemFont(ofSize: 14)
     $0.numberOfLines = 0
   }
   private let stackView = UIStackView().then {

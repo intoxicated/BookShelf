@@ -81,6 +81,16 @@
 		227D3C702381698100973E7B /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C6423811D1600973E7B /* Realm+Extensions.swift */; };
 		227D3C7223816B8200973E7B /* Rx+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C7123816B8200973E7B /* Rx+Extensions.swift */; };
 		227D3C7323816B8200973E7B /* Rx+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C7123816B8200973E7B /* Rx+Extensions.swift */; };
+		227D3C752381715F00973E7B /* SearchBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C742381715F00973E7B /* SearchBooksView.swift */; };
+		227D3C762381715F00973E7B /* SearchBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C742381715F00973E7B /* SearchBooksView.swift */; };
+		227D3C782381716900973E7B /* SearchBooksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C772381716900973E7B /* SearchBooksPresenter.swift */; };
+		227D3C792381716900973E7B /* SearchBooksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C772381716900973E7B /* SearchBooksPresenter.swift */; };
+		227D3C7B2381717600973E7B /* SearchBooksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C7A2381717600973E7B /* SearchBooksInteractor.swift */; };
+		227D3C7C2381717600973E7B /* SearchBooksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C7A2381717600973E7B /* SearchBooksInteractor.swift */; };
+		227D3C7E2381717E00973E7B /* SearchBooksRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C7D2381717E00973E7B /* SearchBooksRouter.swift */; };
+		227D3C7F2381717E00973E7B /* SearchBooksRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C7D2381717E00973E7B /* SearchBooksRouter.swift */; };
+		227D3C8423819F6E00973E7B /* UITableView+Extenions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */; };
+		227D3C8523819F6E00973E7B /* UITableView+Extenions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */; };
 		22A8BD592380204900E01CBD /* BookBasicCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD582380204900E01CBD /* BookBasicCellModel.swift */; };
 		22A8BD5B2380236500E01CBD /* BookMiscCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD5A2380236500E01CBD /* BookMiscCell.swift */; };
 		22A8BD5D2380240600E01CBD /* BookMiscCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD5C2380240600E01CBD /* BookMiscCellModel.swift */; };
@@ -151,6 +161,11 @@
 		227D3C6623812C3900973E7B /* BookNoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookNoteCell.swift; sourceTree = "<group>"; };
 		227D3C69238151B100973E7B /* BaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; };
 		227D3C7123816B8200973E7B /* Rx+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+Extensions.swift"; sourceTree = "<group>"; };
+		227D3C742381715F00973E7B /* SearchBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksView.swift; sourceTree = "<group>"; };
+		227D3C772381716900973E7B /* SearchBooksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksPresenter.swift; sourceTree = "<group>"; };
+		227D3C7A2381717600973E7B /* SearchBooksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksInteractor.swift; sourceTree = "<group>"; };
+		227D3C7D2381717E00973E7B /* SearchBooksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksRouter.swift; sourceTree = "<group>"; };
+		227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extenions.swift"; sourceTree = "<group>"; };
 		22A8BD5623801FED00E01CBD /* BookDetailCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailCellModel.swift; sourceTree = "<group>"; };
 		22A8BD582380204900E01CBD /* BookBasicCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBasicCellModel.swift; sourceTree = "<group>"; };
 		22A8BD5A2380236500E01CBD /* BookMiscCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMiscCell.swift; sourceTree = "<group>"; };
@@ -295,9 +310,9 @@
 				22A8BD612380286C00E01CBD /* Models */,
 				2211AB77237EEB1A0086C56F /* Views */,
 				2211AB76237EEB1A0086C56F /* NewBooksProtocol.swift */,
+				2211ABA0237EFCF80086C56F /* NewBooksView.swift */,
 				2211AB9B237EFCC10086C56F /* NewBooksPresenter.swift */,
 				2211AB9E237EFCF10086C56F /* NewBooksInteractor.swift */,
-				2211ABA0237EFCF80086C56F /* NewBooksView.swift */,
 				2211ABA2237EFD030086C56F /* NewBooksRouter.swift */,
 			);
 			path = NewBooks;
@@ -316,6 +331,10 @@
 			children = (
 				2211AB79237EEB1A0086C56F /* Views */,
 				2211AB7A237EEB1A0086C56F /* SearchBooksProtocol.swift */,
+				227D3C742381715F00973E7B /* SearchBooksView.swift */,
+				227D3C772381716900973E7B /* SearchBooksPresenter.swift */,
+				227D3C7A2381717600973E7B /* SearchBooksInteractor.swift */,
+				227D3C7D2381717E00973E7B /* SearchBooksRouter.swift */,
 			);
 			path = SearchBooks;
 			sourceTree = "<group>";
@@ -343,6 +362,7 @@
 				2272FC8E238032AA005A00D3 /* UIView+Extensions.swift */,
 				227D3C6423811D1600973E7B /* Realm+Extensions.swift */,
 				227D3C7123816B8200973E7B /* Rx+Extensions.swift */,
+				227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -636,17 +656,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				227D3C8423819F6E00973E7B /* UITableView+Extenions.swift in Sources */,
 				22A8BD5B2380236500E01CBD /* BookMiscCell.swift in Sources */,
 				2211ABA1237EFCF80086C56F /* NewBooksView.swift in Sources */,
 				2211ABB2237F180E0086C56F /* BookTableViewCell.swift in Sources */,
 				2272FC9E2380551F005A00D3 /* BookDetailCellModel.swift in Sources */,
 				22A8BD592380204900E01CBD /* BookBasicCellModel.swift in Sources */,
 				227D3C5F23811AD000973E7B /* DataStoreService.swift in Sources */,
+				227D3C7B2381717600973E7B /* SearchBooksInteractor.swift in Sources */,
 				2211AB9F237EFCF10086C56F /* NewBooksInteractor.swift in Sources */,
 				2211AB9C237EFCC10086C56F /* NewBooksPresenter.swift in Sources */,
 				2211AB50237EEAE80086C56F /* AppDelegate.swift in Sources */,
 				22A8BD60238024AC00E01CBD /* CustomTransforms.swift in Sources */,
 				22B56CA0237FBA7800C430A9 /* BookDetailRouter.swift in Sources */,
+				227D3C752381715F00973E7B /* SearchBooksView.swift in Sources */,
 				227D3C7223816B8200973E7B /* Rx+Extensions.swift in Sources */,
 				227D3C6123811B5900973E7B /* DataSource.swift in Sources */,
 				2211ABA3237EFD030086C56F /* NewBooksRouter.swift in Sources */,
@@ -661,11 +684,13 @@
 				22B56CA92380113500C430A9 /* BookBasicCell.swift in Sources */,
 				2211AB89237EEB1A0086C56F /* Book.swift in Sources */,
 				2272FC96238051A6005A00D3 /* Currency.swift in Sources */,
+				227D3C7E2381717E00973E7B /* SearchBooksRouter.swift in Sources */,
 				2272FC912380337E005A00D3 /* ZoomInOutAnimator.swift in Sources */,
 				2211AB87237EEB1A0086C56F /* MainTabBarController.swift in Sources */,
 				22B56CB123801BF100C430A9 /* BookDetailCell.swift in Sources */,
 				2211AB86237EEB1A0086C56F /* SearchBooksProtocol.swift in Sources */,
 				2211AB88237EEB1A0086C56F /* String+Extensions.swift in Sources */,
+				227D3C782381716900973E7B /* SearchBooksPresenter.swift in Sources */,
 				227D3C6323811B7600973E7B /* RealmDataSource.swift in Sources */,
 				227D3C6523811D1600973E7B /* Realm+Extensions.swift in Sources */,
 				22B56CA2237FBAD700C430A9 /* Errors.swift in Sources */,
@@ -687,6 +712,7 @@
 				2211ABB6237F243F0086C56F /* BookTableViewCell.swift in Sources */,
 				227D3C7323816B8200973E7B /* Rx+Extensions.swift in Sources */,
 				2272FC9A23805510005A00D3 /* BookDetailPresenter.swift in Sources */,
+				227D3C792381716900973E7B /* SearchBooksPresenter.swift in Sources */,
 				2211ABB0237F13340086C56F /* APIService.swift in Sources */,
 				2211AB91237EEB2A0086C56F /* BookTests.swift in Sources */,
 				227D3C6D238167FB00973E7B /* Note.swift in Sources */,
@@ -697,6 +723,8 @@
 				2272FCA62380557D005A00D3 /* CustomTransforms.swift in Sources */,
 				2272FCA32380552A005A00D3 /* BookMiscCell.swift in Sources */,
 				2211AB9A237EF5A70086C56F /* String+Extensions.swift in Sources */,
+				227D3C8523819F6E00973E7B /* UITableView+Extenions.swift in Sources */,
+				227D3C7C2381717600973E7B /* SearchBooksInteractor.swift in Sources */,
 				22B56CA3237FBAD700C430A9 /* Errors.swift in Sources */,
 				227D3C6C238167F200973E7B /* DataStoreService.swift in Sources */,
 				2272FC9D2380551C005A00D3 /* BookBasicCellModel.swift in Sources */,
@@ -704,8 +732,10 @@
 				2211AB67237EEAE90086C56F /* BookShelfTests.swift in Sources */,
 				2272FCA723805584005A00D3 /* BookTableViewCellModel.swift in Sources */,
 				2272FC99238054F1005A00D3 /* ZoomInOutAnimator.swift in Sources */,
+				227D3C7F2381717E00973E7B /* SearchBooksRouter.swift in Sources */,
 				2211AB95237EF5330086C56F /* Book.swift in Sources */,
 				2211AB97237EF5420086C56F /* NewBooksProtocol.swift in Sources */,
+				227D3C762381715F00973E7B /* SearchBooksView.swift in Sources */,
 				2272FCA42380554F005A00D3 /* BaseTableViewCell.swift in Sources */,
 				2272FCA223805528005A00D3 /* BookDetailCell.swift in Sources */,
 				227D3C6F238168F300973E7B /* RealmDataSource.swift in Sources */,

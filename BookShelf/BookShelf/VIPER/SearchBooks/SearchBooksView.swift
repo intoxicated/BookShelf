@@ -1,18 +1,23 @@
 //
-//  NewBooksView.swift
+//  SearchBooksView.swift
 //  BookShelf
 //
-//  Created by R3alFr3e on 11/16/19.
+//  Created by R3alFr3e on 11/17/19.
 //  Copyright © 2019 intoxicated. All rights reserved.
 //
 
 import RxSwift
-import SnapKit
+import Then
 import UIKit
 
-class NewBooksView: BaseViewController, ZoomInOutAnimatable {
-  var presenter: NewBooksPresenterProtocol?
+class SearchBooksView: BaseViewController, ZoomInOutAnimatable {
+  var presenter: SearchBooksPresenterProtocol?
   
+  private let searchController = UISearchController(searchResultsController: nil).then {
+    $0.hidesNavigationBarDuringPresentation = true
+    $0.obscuresBackgroundDuringPresentation = false
+    $0.searchBar.placeholder = "Search books"
+  }
   private let tableView = UITableView().then {
     $0.separatorStyle = .none
     $0.register(cellType: BookTableViewCell.self)
@@ -21,29 +26,29 @@ class NewBooksView: BaseViewController, ZoomInOutAnimatable {
     $0.style = .medium
     $0.hidesWhenStopped = true
   }
-  
   private var books: [Book] = []
+  private var searching: Bool = false
+  
   var targetView: UIView?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initNavigationView()
     self.initViews()
-    self.presenter?.fetch()
-    self.tableView.showIndicatorTo(.center)
   }
   
   override func setupConstraints() {
-    super.setupConstraints()
-    
     self.tableView.snp.makeConstraints { (make) in
-      make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
-      make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+      make.edges.equalToSuperview()
     }
+    
+//    self.indicator.snp.makeConstraints { (make) in
+//      make.width.equalTo(40)
+//      make.height.equalTo(40)
+//      make.center.equalToSuperview()
+//    }
   }
-  
+
   func initNavigationView() {
     if #available(iOS 13.0, *) {
       let navBarAppearance = UINavigationBarAppearance()
@@ -56,40 +61,77 @@ class NewBooksView: BaseViewController, ZoomInOutAnimatable {
       self.navigationController?.navigationBar.compactAppearance = navBarAppearance
       self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
       self.navigationController?.navigationBar.prefersLargeTitles = true
-      self.navigationController?.view.backgroundColor = UIColor.white
     } else {
       // Fallback on earlier versions
       UINavigationBar.appearance().barTintColor = .white
       UINavigationBar.appearance().isTranslucent = false
     }
     
-    self.title = "New"
-    self.navigationItem.title = "New Books"
+    self.title = "Search"
+    self.navigationItem.searchController = self.searchController
+    self.definesPresentationContext = true
     self.navigationController?.delegate = self
+    self.searchController.searchBar.delegate = self
+    
+    self.searchController.searchBar.rx.text
+      .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
+      .subscribe(onNext: { [weak self] (text) in
+        self?.requestSearch(with: text, fromScroll: false)
+      }).disposed(by: self.disposeBag)
   }
   
   func initViews() {
-    self.tableView.contentInsetAdjustmentBehavior = .never
-    self.tableView.dataSource = self
     self.tableView.delegate = self
+    self.tableView.dataSource = self
     self.view.addSubview(self.tableView)
+    self.view.addSubview(self.indicator)
+  }
+  
+  func requestSearch(with text: String?, fromScroll: Bool) {
+    guard self.searching == true else { return }
+    self.tableView.showIndicatorTo(fromScroll ? .footer : .center)
+    self.presenter?.search(with: text)
   }
 }
 
-extension NewBooksView: NewBooksViewProtocol {
-  func display(books: [Book]) {
+extension SearchBooksView: UISearchBarDelegate {
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    self.searching = true
+  }
+  
+  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    self.searching = false
+  }
+  
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    self.searching = false
+    self.books = []
+    self.presenter?.reset()
+    self.tableView.reloadData()
+  }
+}
+
+extension SearchBooksView: SearchBooksViewProtocol {
+  func display(books: [Book], isFirstRequest: Bool) {
     self.books = books
     self.tableView.reloadData()
     self.tableView.hideIndicator()
+    
+    if isFirstRequest {
+      self.tableView.scrollToRow(
+        at: IndexPath(row: 0, section: 0),
+        at: .top,
+        animated: false
+      )
+    }
   }
   
   func displayError(_ error: Error) {
-    //display alert
     self.tableView.hideIndicator()
   }
 }
 
-extension NewBooksView: UITableViewDataSource, UITableViewDelegate {
+extension SearchBooksView: UITableViewDataSource, UITableViewDelegate {
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
@@ -107,10 +149,9 @@ extension NewBooksView: UITableViewDataSource, UITableViewDelegate {
     let cell: BookTableViewCell = tableView.dequeueReusableCell(for: indexPath)
     let model = BookTableViewCellModel(book: book)
     cell.configure(with: model)
-    cell.signalForLink().subscribe(onNext: { [weak self] (url) in
-      self?.presenter?.didClickOnLink(url, from: self)
-    }).disposed(by: self.disposeBag)
-    
+//    cell.signalForLink().subscribe(onNext: { [weak self] (url) in
+//      self?.presenter?.didClickOnLink(url, from: self)
+//    }).disposed(by: self.disposeBag)
     return cell
   }
   
@@ -120,9 +161,18 @@ extension NewBooksView: UITableViewDataSource, UITableViewDelegate {
     self.presenter?.didClickOnBook(self.books[indexPath.row], from: self)
     tableView.deselectRow(at: indexPath, animated: true)
   }
+  
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    if indexPath.row == self.books.count - 1 {
+      self.requestSearch(
+        with: self.searchController.searchBar.text,
+        fromScroll: true
+      )
+    }
+  }
 }
 
-extension NewBooksView: UINavigationControllerDelegate {
+extension SearchBooksView: UINavigationControllerDelegate {
   func navigationController(
     _ navigationController: UINavigationController,
     animationControllerFor operation: UINavigationController.Operation,

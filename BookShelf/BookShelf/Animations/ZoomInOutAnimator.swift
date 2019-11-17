@@ -64,6 +64,8 @@ class ZoomInOutAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
     containerView.addSubview(toView)
     containerView.addSubview(targetImageView)
+    
+    //BUG: could not get finalized frame due to large title navigation..
     toView.frame = CGRect(
       origin: toVC.view.frame.origin,
       size: containerView.bounds.size

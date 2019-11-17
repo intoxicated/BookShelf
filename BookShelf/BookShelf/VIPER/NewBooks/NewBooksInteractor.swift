@@ -9,8 +9,6 @@
 import RxSwift
 
 class NewBooksInteractor: NewBooksInteractorProtocol {
-  var presenter: NewBooksPresenterProtocol?
-  
   func fetch() -> Observable<[Book]> {
     return Book.getNews()
   }

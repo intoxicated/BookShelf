@@ -43,25 +43,8 @@ class BookDetailView: BaseViewController, ZoomInOutAnimatable {
   }
 
   func initNavigationView() {
-    if #available(iOS 13.0, *) {
-      let navBarAppearance = UINavigationBarAppearance()
-      navBarAppearance.configureWithOpaqueBackground()
-      navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-      navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-      navBarAppearance.backgroundColor = .white
-
-      navigationController?.navigationBar.standardAppearance = navBarAppearance
-      navigationController?.navigationBar.compactAppearance = navBarAppearance
-      navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-
-      navigationController?.navigationBar.prefersLargeTitles = true
-      navigationController?.navigationBar.isTranslucent = false
-    } else {
-      UINavigationBar.appearance().barTintColor = .white
-      UINavigationBar.appearance().isTranslucent = false
-    }
-
     self.navigationItem.title = "Details"
+    self.navigationItem.largeTitleDisplayMode = .never
   }
   
   func initViews() {

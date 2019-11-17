@@ -17,21 +17,23 @@ class MainTabBarController: UITabBarController {
   private func initTabs() {
     let newBooksView = NewBooksRouter.createModule()
     newBooksView.tabBarItem = UITabBarItem(
-      title: "New Books",
+      title: "",
       image: nil,
       selectedImage: nil
     )
-    let searchView = NewBooksRouter.createModule()
+    let searchView = SearchBooksRouter.createModule()
     searchView.tabBarItem = UITabBarItem(
-      title: "Search",
+      title: "",
       image: nil,
       selectedImage: nil
     )
 
-    self.tabBar.isTranslucent = false
     self.viewControllers = [
       UINavigationController(rootViewController: newBooksView),
       UINavigationController(rootViewController: searchView)
     ]
+    
+    self.tabBar.items?[0].title = "New Books"
+    self.tabBar.items?[1].title = "Search"
   }
 }

@@ -11,8 +11,7 @@ import RxSwift
 protocol SearchBooksViewProtocol: class {
   var presenter: SearchBooksPresenterProtocol? { get set }
   
-  func display(books: [Book])
-  //func add(books: [Book])
+  func display(books: [Book], isFirstRequest: Bool)
   func displayError(_ error: Error)
 }
 
@@ -21,18 +20,18 @@ protocol SearchBooksPresenterProtocol: class {
   var interactor: SearchBooksInteractorProtocol? { get set }
   var router: SearchBooksRouterProtocol? { get set }
   
-  func search(with keyword: String)
-  func didClickResult(book: Book, from view: UIViewController?)
+  func reset()
+  func search(with keyword: String?)
+  func didClickOnBook(_ book: Book, from view: UIViewController?)
 }
 
 protocol SearchBooksInteractorProtocol: class {
-  var presenter: SearchBooksPresenterProtocol? { get set }
-  
-  func search(with keyword: String, nextPage: Int) -> Observable<[Book]>
+  func reset()
+  func search(with keyword: String?) -> Observable<([Book], Bool)>
 }
 
 protocol SearchBooksRouterProtocol: class {
-  static func createModule() -> UIViewController
+  static func createModule() -> SearchBooksView
   
   func pushDetail(with book: Book, from view: UIViewController?)
 }

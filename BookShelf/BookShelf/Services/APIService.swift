@@ -12,7 +12,7 @@ import Alamofire
 typealias ParametersType = Parameters
 
 enum RestService: URLRequestConvertible {
-  case SearchBook(String, String?)
+  case SearchBook(String, Int)
   case GetNewBooks
   case GetBookDetail(String)
   
@@ -32,7 +32,6 @@ enum RestService: URLRequestConvertible {
   var path: String {
     switch self {
     case .SearchBook(let query, let page):
-      let page = page ?? ""
       return "search/\(query)/\(page)"
     case .GetNewBooks:
       return "new"

@@ -106,7 +106,8 @@ extension Book {
   
   static func getNews() -> Observable<[Book]> {
     return Observable.create { (subscriber) -> Disposable in
-      let req = Alamofire.request(RestService.GetNewBooks)
+      let req = Alamofire
+        .request(RestService.GetNewBooks)
         .validate(statusCode: 200..<300)
         .responseJSON { response in
           switch response.result {
@@ -126,8 +127,28 @@ extension Book {
     }
   }
   
-  static func search(with keyword: String, page: Int) -> Observable<[Book]> {
-    return .just([])
+  static func search(with keyword: String, page: Int) -> Observable<([Book], Int)> {
+    return Observable.create { (subscriber) -> Disposable in
+      let req = Alamofire
+        .request(RestService.SearchBook(keyword, page))
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
+          switch response.result {
+          case .success(let data):
+            let json = SwiftyJSON.JSON(data)
+            let total = json["total"].intValue
+            let books = Mapper<Book>().mapArray(JSONObject: json["books"].object) ?? []
+            subscriber.onNext((books, total))
+            subscriber.onCompleted()
+          case .failure(let error):
+            subscriber.onError(error)
+          }
+        }
+      
+      return Disposables.create {
+        req.cancel()
+      }
+    }
   }
 }
 
