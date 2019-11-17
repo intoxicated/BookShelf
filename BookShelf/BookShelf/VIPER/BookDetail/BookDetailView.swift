@@ -6,6 +6,7 @@
 //  Copyright © 2019 intoxicated. All rights reserved.
 //
 
+import RxSwift
 import UIKit
 
 class BookDetailView: BaseViewController, ZoomInOutAnimatable {
@@ -17,10 +18,11 @@ class BookDetailView: BaseViewController, ZoomInOutAnimatable {
     case basicInfo
     case detailInfo
     case misc
+    case note
   }
   
   private struct Constants {
-    static let numberOfRows = 3
+    static let numberOfRows = 4
   }
   
   private let tableView = UITableView().then {
@@ -28,6 +30,7 @@ class BookDetailView: BaseViewController, ZoomInOutAnimatable {
     $0.register(cellType: BookBasicCell.self)
     $0.register(cellType: BookDetailCell.self)
     $0.register(cellType: BookMiscCell.self)
+    $0.register(cellType: BookNoteCell.self)
   }
   
   private var didLoad = false
@@ -104,6 +107,10 @@ extension BookDetailView: BookDetailViewProtocol {
   func displayError(_ error: Error) {
     //display alert
   }
+  
+  func saveCompleted(success: Bool) {
+    self.tableView.reloadData()
+  }
 }
 
 extension BookDetailView: UITableViewDataSource, UITableViewDelegate {
@@ -137,6 +144,19 @@ extension BookDetailView: UITableViewDataSource, UITableViewDelegate {
       cell.configure(with: model)
       cell.signalForLink().subscribe(onNext: { [weak self] (url) in
         self?.presenter?.didClickOnLink(url, from: self)
+      }).disposed(by: self.disposeBag)
+      return cell
+    case .note:
+      let cell: BookNoteCell = tableView.dequeueReusableCell(for: indexPath)
+      self.book
+        .getNote()
+        .observeOn(MainScheduler.instance)
+        .subscribe(onNext: { (text) in
+          cell.configure(text: text)
+        }).disposed(by: self.disposeBag)
+        
+      cell.signalForSave().subscribe(onNext: { [weak self] text in
+        self?.presenter?.didClickOnSaveForNote(text: text, from: self)
       }).disposed(by: self.disposeBag)
       return cell
     }

@@ -19,4 +19,17 @@ class BookDetailInteractor: BookDetailInteractorProtocol {
     
     return book.getDetail()
   }
+  
+  func saveNote(text: String?) -> Observable<Bool> {
+    return Observable.create { [weak self] (subscriber) in
+      let signal = self?.book?.takeNote(text: text ?? "")
+        .subscribe(onNext: { (note) in
+          subscriber.onNext(note != nil)
+          subscriber.onCompleted()
+        })
+      return Disposables.create {
+        signal?.dispose()
+      }
+    }
+  }
 }

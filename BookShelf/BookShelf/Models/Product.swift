@@ -8,9 +8,8 @@
 
 import Foundation
 
-enum ProductType {
+enum ProductType: String {
   case book
-  //other types can add here
 }
 
 //in case other product can add in near future, it can implement this protocol

@@ -12,6 +12,7 @@ protocol BookDetailViewProtocol: class {
   
   func display(book: Book)
   func displayError(_ error: Error)
+  func saveCompleted(success: Bool)
 }
 
 protocol BookDetailPresenterProtocol: class {
@@ -20,6 +21,7 @@ protocol BookDetailPresenterProtocol: class {
   var router: BookDetailRouterProtocol? { get set }
   
   func fetch()
+  func didClickOnSaveForNote(text: String?, from view: UIViewController?)
   func didClickOnLink(_ url: URL, from view: UIViewController?)
 }
 
@@ -28,6 +30,7 @@ protocol BookDetailInteractorProtocol: class {
   var book: Book? { get set }
   
   func fetch() -> Observable<Book?>
+  func saveNote(text: String?) -> Observable<Bool>
 }
 
 protocol BookDetailRouterProtocol: class {

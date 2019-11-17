@@ -36,4 +36,12 @@ class BookDetailPresenter: BookDetailPresenterProtocol {
       }
     })
   }
+  
+  func didClickOnSaveForNote(text: String?, from view: UIViewController?) {
+    self.interactor?
+      .saveNote(text: text)
+      .subscribe(onNext: { [weak self] (completed) in
+        self?.view?.saveCompleted(success: completed)
+      }).disposed(by: self.disposeBag)
+  }
 }

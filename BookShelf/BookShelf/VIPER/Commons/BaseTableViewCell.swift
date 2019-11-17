@@ -7,9 +7,12 @@
 //
 
 import Reusable
+import RxSwift
 import UIKit
 
 class BaseTableViewCell: UITableViewCell, Reusable {
+  private(set) var disposeBag = DisposeBag()
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     self.initialize()

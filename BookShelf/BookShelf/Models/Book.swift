@@ -28,6 +28,10 @@ struct Book: Product {
   var type: ProductType = .book
   var url: URL? //misc
   var year: String? //basic
+  
+  var id: String {
+    return "isbn13:\(isbn13 ?? "")"
+  }
 }
 
 extension Book: Mappable {
@@ -124,5 +128,37 @@ extension Book {
   
   static func search(with keyword: String, page: Int) -> Observable<[Book]> {
     return .just([])
+  }
+}
+
+extension Book {
+  func getNote() -> Observable<String?> {
+    return Observable.create { (subscriber) in
+      DataStoreService.shared.note(
+        id: self.id,
+        text: "",
+        type: .book,
+        op: .find) { (note) in
+          subscriber.onNext(note?.text)
+          subscriber.onCompleted()
+        }
+      
+      return Disposables.create()
+    }
+  }
+  
+  func takeNote(text: String) -> Observable<Note?> {
+    return Observable.create { (subscriber) in
+      DataStoreService.shared.note(
+        id: self.id,
+        text: text,
+        type: .book,
+        op: .upsert) { (note) in
+          subscriber.onNext(note)
+          subscriber.onCompleted()
+        }
+      
+      return Disposables.create()
+    }
   }
 }
