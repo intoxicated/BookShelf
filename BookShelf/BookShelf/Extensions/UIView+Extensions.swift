@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 extension UIView {
   public func frameIn(_ view: UIView?) -> CGRect {
@@ -26,5 +27,33 @@ extension UIView {
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return isSuccess ? image : nil
+  }
+}
+
+extension UIView {
+  @objc func rxOnNext(_ gesture: UIGestureRecognizer) {
+    if let rxGesture = gesture as? RxGesture {
+      rxGesture.subscriber.onNext(gesture)
+    }
+  }
+
+  func rxForClick(cancelTouches: Bool = true) -> Observable<Any?> {
+    self.isUserInteractionEnabled = true
+
+    return Observable.create { [weak self] subscriber in
+      let gesture = RxClickGesture(
+        container: self!,
+        target: subscriber,
+        action: #selector(self!.rxOnNext(_:))
+      )
+      gesture.numberOfTapsRequired = 1
+      gesture.cancelsTouchesInView = cancelTouches
+      self?.addGestureRecognizer(gesture)
+
+      return Disposables.create {
+        subscriber.onCompleted()
+        self?.removeGestureRecognizer(gesture)
+      }
+    }
   }
 }
