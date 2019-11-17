@@ -17,6 +17,14 @@ class StringExtensionTests: QuickSpec {
           expect("$10".isValidCurrency).to(beTrue())
           expect("R143".isValidCurrency).to(beTrue())
           expect("₩10000".isValidCurrency).to(beTrue())
+          expect("$100.15".isValidCurrency).to(beTrue())
+        }
+      }
+      
+      context("when a string has no content") {
+        it("should return false") {
+          let test = ""
+          expect(test.isValidCurrency).to(beFalse())
         }
       }
       

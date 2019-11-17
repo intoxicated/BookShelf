@@ -20,8 +20,9 @@ struct BookTableViewCellModel {
     self.title = book.title
     self.subtitle = book.subtitle
     self.imageUrl = book.image
-    self.price = book.price
     self.isbn13 = book.isbn13
     self.url = book.url?.absoluteString
+    self.price = book.price?.isValidCurrency == true ?
+      book.price! : "price unknown"
   }
 }

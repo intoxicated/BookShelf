@@ -14,6 +14,7 @@ class NewBooksView: BaseViewController, ZoomInOutAnimatable {
   var presenter: NewBooksPresenterProtocol?
   
   private let tableView = UITableView().then {
+    $0.separatorStyle = .none
     $0.register(cellType: BookTableViewCell.self)
   }
   

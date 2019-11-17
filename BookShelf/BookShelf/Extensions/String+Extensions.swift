@@ -5,11 +5,31 @@
 //  Created by R3alFr3e on 11/14/19.
 //  Copyright © 2019 intoxicated. All rights reserved.
 //
+import UIKit
 
 extension String {
   var isValidCurrency: Bool {
-    //check first character as identifier such as $
-    //check rest of string can be convertable to double
+    let index = self.firstIndex { (char) -> Bool in
+      return char.unicodeScalars.contains(where: {
+        CharacterSet.decimalDigits.contains($0)
+      })
+    }
+    
+    if let index = index {
+      let symbol = String(self[..<index])
+      let value = String(self[index...])
+      guard Double(value) != nil else {
+        return false
+      }
+      
+      let currencySet = Currency.getAll()
+      for currency in currencySet {
+        if currency.symbolNative == symbol {
+          return true
+        }
+      }
+      return false
+    }
     return false
   }
   

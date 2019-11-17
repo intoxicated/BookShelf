@@ -16,7 +16,9 @@ struct BookDetailCellModel {
   let desc: String?
   
   init(book: Book) {
-    self.price = "Price: \(book.price ?? "unknown")"
+    let priceValue = book.price?.isValidCurrency == true ?
+      book.price! : "unknown"
+    self.price = "Price: \(priceValue)"
     self.publisher = "Publisher: \(book.publisher ?? "unknown")"
     
     if let pages = book.pages {
