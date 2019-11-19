@@ -342,7 +342,6 @@
 		2211AB78237EEB1A0086C56F /* SearchBooks */ = {
 			isa = PBXGroup;
 			children = (
-				2211AB79237EEB1A0086C56F /* Views */,
 				2211AB7A237EEB1A0086C56F /* SearchBooksProtocol.swift */,
 				227D3C742381715F00973E7B /* SearchBooksView.swift */,
 				227D3C772381716900973E7B /* SearchBooksPresenter.swift */,
@@ -350,13 +349,6 @@
 				227D3C7D2381717E00973E7B /* SearchBooksRouter.swift */,
 			);
 			path = SearchBooks;
-			sourceTree = "<group>";
-		};
-		2211AB79237EEB1A0086C56F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		2211AB7B237EEB1A0086C56F /* Controllers */ = {

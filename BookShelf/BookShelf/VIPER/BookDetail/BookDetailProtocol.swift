@@ -11,7 +11,7 @@ protocol BookDetailViewProtocol: class {
   var presenter: BookDetailPresenterProtocol? { get set }
   
   func display(book: Book)
-  func displayError(_ error: Error)
+  func displayError(_ error: BookShelfError)
   func saveCompleted(success: Bool)
 }
 

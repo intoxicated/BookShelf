@@ -106,16 +106,31 @@ extension SearchBooksView: SearchBooksViewProtocol {
     self.tableView.reloadData()
     self.tableView.hideIndicator()
     
-    if isFirstRequest {
+    if isFirstRequest && books.count != 0 {
       self.tableView.scrollToRow(
         at: IndexPath(row: 0, section: 0),
         at: .top,
         animated: false
       )
+    } else if isFirstRequest && books.count == 0 {
+      self.tableView.showEmpty(with: "Books not found")
     }
   }
   
-  func displayError(_ error: Error) {
+  func displayError(_ error: BookShelfError) {
+    let activityPosition = self.tableView.activityPosition
+    
+    NoticeController.shared.showAlert(
+      with: error,
+      from: self) { [weak self] (retry) in
+        if retry {
+          self?.requestSearch(
+            with: self?.searchController.searchBar.text,
+            fromScroll: activityPosition == .footer
+          )
+        }
+      }
+    
     self.tableView.hideIndicator()
   }
 }

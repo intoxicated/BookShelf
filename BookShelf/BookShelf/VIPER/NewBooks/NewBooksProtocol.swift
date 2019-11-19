@@ -12,7 +12,7 @@ protocol NewBooksViewProtocol: class {
   var presenter: NewBooksPresenterProtocol? { get set }
   
   func display(books: [Book])
-  func displayError(_ error: Error)
+  func displayError(_ error: BookShelfError)
 }
 
 protocol NewBooksPresenterProtocol: class {

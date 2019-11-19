@@ -25,17 +25,17 @@ class BookDetailPresenter: BookDetailPresenterProtocol {
         if let book = book {
           self?.view?.display(book: book)
         } else {
-          self?.view?.displayError(BSError.parseError)
+          self?.view?.displayError(.parseError)
         }
-      }, onError: { [weak self] (error) in
-        self?.view?.displayError(error)
+      }, onError: { [weak self] _ in
+        self?.view?.displayError(.networkError)
       }).disposed(by: self.disposeBag)
   }
   
   func didClickOnLink(_ url: URL, from view: UIViewController?) {
     self.router?.presentLink(with: url, from: view, completion: { (completion) in
       if !completion {
-        self.view?.displayError(BSError.linkError)
+        self.view?.displayError(.linkError)
       }
     })
   }

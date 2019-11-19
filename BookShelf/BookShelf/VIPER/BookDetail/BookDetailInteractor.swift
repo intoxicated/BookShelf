@@ -13,7 +13,7 @@ class BookDetailInteractor: BookDetailInteractorProtocol {
   
   func fetch() -> Observable<Book?> {
     guard let book = self.book else {
-      return .error(BSError.prepError)
+      return .error(BookShelfError.linkError)
     }
     
     return book.getDetail()

@@ -100,7 +100,7 @@ extension NewBooksTests {
       self.didFetchCalled = true
     }
     
-    func displayError(_ error: Error) {
+    func displayError(_ error: BookShelfError) {
       self.didErrorCalled = true
     }
   }

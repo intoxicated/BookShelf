@@ -24,8 +24,8 @@ class NewBooksPresenter: NewBooksPresenterProtocol {
       .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] (books) in
         self?.view?.display(books: books)
-      }, onError: { [weak self] (error) in
-        self?.view?.displayError(error)
+      }, onError: { [weak self] _ in
+        self?.view?.displayError(.networkError)
       }).disposed(by: self.disposeBag)
   }
   
@@ -36,7 +36,7 @@ class NewBooksPresenter: NewBooksPresenterProtocol {
   func didClickOnLink(_ url: URL, from view: UIViewController?) {
     self.router?.presentLink(with: url, from: view, completion: { (completed) in
       if !completed {
-        self.view?.displayError(BSError.linkError)
+        self.view?.displayError(.linkError)
       }
     })
   }

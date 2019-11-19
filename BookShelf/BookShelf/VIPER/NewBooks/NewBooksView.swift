@@ -17,10 +17,6 @@ class NewBooksView: BaseViewController, ZoomInOutAnimatable {
     $0.separatorStyle = .none
     $0.register(cellType: BookTableViewCell.self)
   }
-  private var indicator = UIActivityIndicatorView().then {
-    $0.style = .medium
-    $0.hidesWhenStopped = true
-  }
   
   private var books: [Book] = []
   var targetView: UIView?
@@ -82,8 +78,15 @@ extension NewBooksView: NewBooksViewProtocol {
     self.tableView.hideIndicator()
   }
   
-  func displayError(_ error: Error) {
-    //display alert
+  func displayError(_ error: BookShelfError) {
+    NoticeController.shared.showAlert(
+      with: error,
+      from: self) { [weak self] (retry) in
+        if retry {
+          self?.presenter?.fetch()
+        }
+      }
+    
     self.tableView.hideIndicator()
   }
 }

@@ -12,7 +12,7 @@ protocol SearchBooksViewProtocol: class {
   var presenter: SearchBooksPresenterProtocol? { get set }
   
   func display(books: [Book], isFirstRequest: Bool)
-  func displayError(_ error: Error)
+  func displayError(_ error: BookShelfError)
 }
 
 protocol SearchBooksPresenterProtocol: class {

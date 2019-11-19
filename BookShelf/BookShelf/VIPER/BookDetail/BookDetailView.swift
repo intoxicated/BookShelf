@@ -87,11 +87,22 @@ extension BookDetailView: BookDetailViewProtocol {
     self.tableView.reloadData()
   }
   
-  func displayError(_ error: Error) {
-    //display alert
+  func displayError(_ error: BookShelfError) {
+    NoticeController.shared.showAlert(
+      with: error,
+      from: self) { [weak self] (retry) in
+        if retry {
+          self?.presenter?.fetch()
+        }
+      }
   }
   
   func saveCompleted(success: Bool) {
+    NoticeController.shared.showCompletion(
+      with: "Saved!",
+      message: "Your note has been saved",
+      from: self
+    )
     self.tableView.reloadData()
   }
 }

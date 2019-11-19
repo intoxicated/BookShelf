@@ -13,10 +13,31 @@ enum IndicatorPosition {
 }
 
 extension UITableView {
+  static let indicatorTagNumber = 1004
+  
+  func showEmpty(with message: String) {
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+    let label = UILabel().then {
+      $0.text = message
+      $0.font = UIFont.systemFont(ofSize: 17)
+      $0.textColor = .gray
+      $0.textAlignment = .center
+    }
+    view.addSubview(label)
+    label.snp.makeConstraints { (make) in
+      make.center.equalToSuperview()
+      make.leading.equalToSuperview().inset(20)
+      make.trailing.equalToSuperview().inset(20)
+    }
+    
+    self.backgroundView = view
+  }
+  
   func showIndicatorTo(_ position: IndicatorPosition) {
     let view = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
 
     let indicator = UIActivityIndicatorView()
+    indicator.tag = UITableView.indicatorTagNumber
     indicator.hidesWhenStopped = true
     indicator.startAnimating()
     
@@ -46,5 +67,16 @@ extension UITableView {
     self.tableHeaderView = nil
     self.tableFooterView = nil
     self.backgroundView = nil
+  }
+  
+  var activityPosition: IndicatorPosition? {
+    if let view = self.tableHeaderView, view.tag == UITableView.indicatorTagNumber {
+      return .header
+    } else if let view = self.backgroundView, view.tag == UITableView.indicatorTagNumber {
+      return .center
+    } else if let view = self.tableFooterView, view.tag == UITableView.indicatorTagNumber {
+      return .footer
+    }
+    return nil
   }
 }

@@ -30,8 +30,8 @@ class SearchBooksPresenter: SearchBooksPresenterProtocol {
         guard let self = self else { return }
         self.view?.display(books: books, isFirstRequest: isFirst)
         self.isSearching = false
-      }, onError: { [weak self] (error) in
-        self?.view?.displayError(error)
+      }, onError: { [weak self] _ in
+        self?.view?.displayError(.networkError)
         self?.isSearching = false
       }).disposed(by: self.disposeBag)
   }
@@ -47,7 +47,7 @@ class SearchBooksPresenter: SearchBooksPresenterProtocol {
   func didClickOnLink(_ url: URL, from view: UIViewController?) {
     self.router?.presentLink(with: url, from: view, completion: { (completed) in
       if !completed {
-        self.view?.displayError(BSError.linkError)
+        self.view?.displayError(.linkError)
       }
     })
   }

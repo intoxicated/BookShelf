@@ -8,8 +8,34 @@
 
 import Foundation
 
-struct BSError {
-  static let linkError = NSError(domain: "data", code: 422, userInfo: nil)
-  static let parseError = NSError(domain: "api", code: 400, userInfo: nil)
-  static let prepError = NSError(domain: "logic", code: 402, userInfo: nil)
+enum BookShelfError: Error {
+  case linkError
+  case parseError
+  case prepError
+  case networkError
 }
+
+extension BookShelfError: LocalizedError {
+  var errorDescription: String? {
+    switch self {
+    case .linkError:
+      return "The link is invalid"
+    case .parseError:
+      return "Error while reading data from network. Would you want to try again?"
+    case .prepError:
+      return "Internal error. Book entity did not set properly"
+    case .networkError:
+      return "Network error. Would you want to try again?"
+    }
+  }
+  
+  var retryable: Bool {
+    switch self {
+    case .parseError, .networkError:
+      return true
+    default:
+      return false
+    }
+  }
+}
+
