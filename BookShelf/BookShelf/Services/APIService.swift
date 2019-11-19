@@ -8,13 +8,18 @@
 
 import Alamofire
 
-
 typealias ParametersType = Parameters
 
 enum RestService: URLRequestConvertible {
   case SearchBook(String, Int)
   case GetNewBooks
   case GetBookDetail(String)
+  
+  static let queue = DispatchQueue(
+    label: "com.sendbird.project",
+    qos: .background,
+    attributes: .concurrent
+  )
   
   var baseURL: String {
     return "https://api.itbook.store/1.0/"
@@ -46,8 +51,7 @@ enum RestService: URLRequestConvertible {
     var urlRequest = URLRequest(url: url.appendingPathComponent(path))
     urlRequest.httpMethod = method.rawValue
     urlRequest.timeoutInterval = 5
-    
+    urlRequest.cachePolicy = .returnCacheDataElseLoad
     return urlRequest
   }
-  
 }

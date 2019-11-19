@@ -63,7 +63,6 @@ class NewBooksView: BaseViewController, ZoomInOutAnimatable {
       UINavigationBar.appearance().isTranslucent = false
     }
     
-    self.title = "New"
     self.navigationItem.title = "New Books"
     self.navigationController?.delegate = self
   }

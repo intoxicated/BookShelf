@@ -23,6 +23,7 @@ protocol SearchBooksPresenterProtocol: class {
   func reset()
   func search(with keyword: String?)
   func didClickOnBook(_ book: Book, from view: UIViewController?)
+  func didClickOnLink(_ url: URL, from view: UIViewController?)
 }
 
 protocol SearchBooksInteractorProtocol: class {
@@ -34,4 +35,5 @@ protocol SearchBooksRouterProtocol: class {
   static func createModule() -> SearchBooksView
   
   func pushDetail(with book: Book, from view: UIViewController?)
+  func presentLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?)
 }

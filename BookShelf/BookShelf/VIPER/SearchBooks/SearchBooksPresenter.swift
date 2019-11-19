@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxSwiftExt
 import UIKit
 
 class SearchBooksPresenter: SearchBooksPresenterProtocol {
@@ -23,6 +24,8 @@ class SearchBooksPresenter: SearchBooksPresenterProtocol {
     
     self.interactor?
       .search(with: keyword)
+      .retry(.delayed(maxCount: 3, time: 3.0))
+      .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] (books, isFirst) in
         guard let self = self else { return }
         self.view?.display(books: books, isFirstRequest: isFirst)
@@ -39,5 +42,13 @@ class SearchBooksPresenter: SearchBooksPresenterProtocol {
   
   func didClickOnBook(_ book: Book, from view: UIViewController?) {
     self.router?.pushDetail(with: book, from: view)
+  }
+  
+  func didClickOnLink(_ url: URL, from view: UIViewController?) {
+    self.router?.presentLink(with: url, from: view, completion: { (completed) in
+      if !completed {
+        self.view?.displayError(BSError.linkError)
+      }
+    })
   }
 }

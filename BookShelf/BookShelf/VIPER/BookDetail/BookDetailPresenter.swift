@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxSwiftExt
 
 class BookDetailPresenter: BookDetailPresenterProtocol {
   weak var view: BookDetailViewProtocol?
@@ -18,6 +19,8 @@ class BookDetailPresenter: BookDetailPresenterProtocol {
   func fetch() {
     self.interactor?
       .fetch()
+      .retry(.delayed(maxCount: 3, time: 3.0))
+      .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] (book) in
         if let book = book {
           self?.view?.display(book: book)
@@ -40,6 +43,7 @@ class BookDetailPresenter: BookDetailPresenterProtocol {
   func didClickOnSaveForNote(text: String?, from view: UIViewController?) {
     self.interactor?
       .saveNote(text: text)
+      .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] (completed) in
         self?.view?.saveCompleted(success: completed)
       }).disposed(by: self.disposeBag)

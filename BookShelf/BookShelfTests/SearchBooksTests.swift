@@ -25,7 +25,7 @@ extension SearchBooksTests {
   class SearchBooksMockView: SearchBooksViewProtocol {
     var presenter: SearchBooksPresenterProtocol?
     
-    func display(books: [Book]) {
+    func display(books: [Book], isFirstRequest: Bool) {
       
     }
     
@@ -35,11 +35,15 @@ extension SearchBooksTests {
   }
   
   class SearchBooksMockRouter: SearchBooksRouterProtocol {
-    static func createModule() -> UIViewController {
-      return UIViewController()
+    static func createModule() -> SearchBooksView {
+      return SearchBooksView()
     }
     
     func pushDetail(with book: Book, from view: UIViewController?) {
+      
+    }
+    
+    func presentLink(with url: URL, from view: UIViewController?, completion: ((Bool) -> ())?) {
       
     }
   }

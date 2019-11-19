@@ -20,6 +20,8 @@ class NewBooksPresenter: NewBooksPresenterProtocol {
   func fetch() {
     self.interactor?
       .fetch()
+      .retry(.delayed(maxCount: 3, time: 3.0))
+      .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] (books) in
         self?.view?.display(books: books)
       }, onError: { [weak self] (error) in

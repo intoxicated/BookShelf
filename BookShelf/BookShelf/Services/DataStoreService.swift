@@ -8,7 +8,6 @@
 
 enum DataSourceOperation {
   case insert
-  case update
   case remove
   case find
   case upsert
@@ -22,7 +21,7 @@ struct DataStoreService {
   
   func note(
     id: String,
-    text: String,
+    text: String = "",
     type: ProductType,
     op: DataSourceOperation,
     completion: ((Note?) -> ())? = nil) {
@@ -42,8 +41,6 @@ struct DataStoreService {
         self.source.insert(object: newItem)
       }
       completion?(newItem)
-    case .update:
-      break
     case .remove:
       self.source.remove(type: Note.self, id: id)
       completion?(nil)

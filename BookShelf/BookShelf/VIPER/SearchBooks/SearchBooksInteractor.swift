@@ -46,7 +46,7 @@ class SearchBooksInteractor: SearchBooksInteractorProtocol {
         .search(with: keyword ?? "", page: self.nextPage)
         .subscribe(onNext: { (books, total) in
           self.total = total
-          self.books = self.nextPage == 1 ? books : self.books + books
+          self.books = self.books + books
           subscriber.onNext((self.books, self.nextPage == 1))
           subscriber.onCompleted()
         }, onError: { (error) in
@@ -67,6 +67,7 @@ class SearchBooksInteractor: SearchBooksInteractorProtocol {
   private func prep(with keyword: String?) {
     if self.keyword != keyword {
       self.keyword = keyword
+      self.books = []
       self.nextPage = 1
       self.total = nil
     } else {

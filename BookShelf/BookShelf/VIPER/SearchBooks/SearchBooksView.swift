@@ -22,10 +22,6 @@ class SearchBooksView: BaseViewController, ZoomInOutAnimatable {
     $0.separatorStyle = .none
     $0.register(cellType: BookTableViewCell.self)
   }
-  private var indicator = UIActivityIndicatorView().then {
-    $0.style = .medium
-    $0.hidesWhenStopped = true
-  }
   private var books: [Book] = []
   private var searching: Bool = false
   
@@ -41,12 +37,6 @@ class SearchBooksView: BaseViewController, ZoomInOutAnimatable {
     self.tableView.snp.makeConstraints { (make) in
       make.edges.equalToSuperview()
     }
-    
-//    self.indicator.snp.makeConstraints { (make) in
-//      make.width.equalTo(40)
-//      make.height.equalTo(40)
-//      make.center.equalToSuperview()
-//    }
   }
 
   func initNavigationView() {
@@ -67,7 +57,7 @@ class SearchBooksView: BaseViewController, ZoomInOutAnimatable {
       UINavigationBar.appearance().isTranslucent = false
     }
     
-    self.title = "Search"
+    self.navigationItem.title = "Search"
     self.navigationItem.searchController = self.searchController
     self.definesPresentationContext = true
     self.navigationController?.delegate = self
@@ -84,7 +74,6 @@ class SearchBooksView: BaseViewController, ZoomInOutAnimatable {
     self.tableView.delegate = self
     self.tableView.dataSource = self
     self.view.addSubview(self.tableView)
-    self.view.addSubview(self.indicator)
   }
   
   func requestSearch(with text: String?, fromScroll: Bool) {
@@ -149,9 +138,9 @@ extension SearchBooksView: UITableViewDataSource, UITableViewDelegate {
     let cell: BookTableViewCell = tableView.dequeueReusableCell(for: indexPath)
     let model = BookTableViewCellModel(book: book)
     cell.configure(with: model)
-//    cell.signalForLink().subscribe(onNext: { [weak self] (url) in
-//      self?.presenter?.didClickOnLink(url, from: self)
-//    }).disposed(by: self.disposeBag)
+    cell.signalForLink().subscribe(onNext: { [weak self] (url) in
+      self?.presenter?.didClickOnLink(url, from: self)
+    }).disposed(by: self.disposeBag)
     return cell
   }
   
@@ -162,7 +151,10 @@ extension SearchBooksView: UITableViewDataSource, UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
-  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+  func tableView(
+    _ tableView: UITableView,
+    willDisplay cell: UITableViewCell,
+    forRowAt indexPath: IndexPath) {
     if indexPath.row == self.books.count - 1 {
       self.requestSearch(
         with: self.searchController.searchBar.text,
