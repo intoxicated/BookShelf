@@ -93,7 +93,7 @@ extension Book {
 }
 
 extension Book {
-  func getNote() -> Observable<String?> {
+  func getNote() -> Observable<Note?> {
     return NoteRequest.shared.get(type: .book, id: self.id)
   }
   

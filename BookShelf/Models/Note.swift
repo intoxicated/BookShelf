@@ -13,7 +13,7 @@ protocol Notable {
   var id: String { get }
   var type: ProductType { get }
   
-  func getNote() -> Observable<String?>
+  func getNote() -> Observable<Note?>
   func takeNote(text: String) -> Observable<Note?>
 }
 

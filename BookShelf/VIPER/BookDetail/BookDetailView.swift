@@ -145,8 +145,8 @@ extension BookDetailView: UITableViewDataSource, UITableViewDelegate {
       self.book
         .getNote()
         .observeOn(MainScheduler.instance)
-        .subscribe(onNext: { (text) in
-          cell.configure(text: text)
+        .subscribe(onNext: { (note) in
+          cell.configure(text: note?.text)
         }).disposed(by: self.disposeBag)
         
       cell.signalForSave().subscribe(onNext: { [weak self] text in

@@ -9,7 +9,7 @@
 import RxSwift
 
 protocol NoteRequestProtocol {
-  func get(type: ProductType, id: String) -> Observable<String?>
+  func get(type: ProductType, id: String) -> Observable<Note?>
   func set(type: ProductType, id: String, text: String) -> Observable<Note?>
 }
 
@@ -17,13 +17,13 @@ struct NoteRequest: NoteRequestProtocol {
   static let shared = NoteRequest()
   private init() {}
   
-  func get(type: ProductType, id: String) -> Observable<String?> {
+  func get(type: ProductType, id: String) -> Observable<Note?> {
     return Observable.create { (subscriber) in
       DataStoreService.shared.note(
         id: id,
         type: type,
         op: .find) { (note) in
-          subscriber.onNext(note?.text)
+          subscriber.onNext(note)
           subscriber.onCompleted()
         }
       
