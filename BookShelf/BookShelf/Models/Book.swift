@@ -11,7 +11,7 @@ import RxSwift
 import Alamofire
 import SwiftyJSON
 
-struct Book: Product {
+struct Book: Product, Notable {
   var authors: String? //basic
   var desc: String? //detail
   var error: String?
@@ -80,106 +80,24 @@ extension Book: Equatable {
 
 extension Book {
   func getDetail() -> Observable<Book?> {
-    guard let isbn13 = self.isbn13 else {
-      return .just(nil)
-    }
-    return Observable.create { (subscriber) -> Disposable in
-      let req = Alamofire
-        .request(RestService.GetBookDetail(isbn13))
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-          switch response.result {
-          case .success(let data):
-            let json = SwiftyJSON.JSON(data)
-            let book = Mapper<Book>().map(JSONObject: json.object)
-            subscriber.onNext(book)
-            subscriber.onCompleted()
-          case .failure(let error):
-            subscriber.onError(error)
-          }
-        }
-      return Disposables.create {
-        req.cancel()
-      }
-    }
+    return BookRequest.shared.getDetail(from: self.isbn13)
   }
   
   static func getNews() -> Observable<[Book]> {
-    return Observable.create { (subscriber) -> Disposable in
-      let req = Alamofire
-        .request(RestService.GetNewBooks)
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-          switch response.result {
-          case .success(let data):
-            let json = SwiftyJSON.JSON(data)
-            let books = Mapper<Book>().mapArray(JSONObject: json["books"].object) ?? []
-            subscriber.onNext(books)
-            subscriber.onCompleted()
-          case .failure(let error):
-            subscriber.onError(error)
-          }
-        }
-      
-      return Disposables.create {
-        req.cancel()
-      }
-    }
+    return BookRequest.shared.getNews()
   }
   
   static func search(with keyword: String, page: Int) -> Observable<([Book], Int)> {
-    return Observable.create { (subscriber) -> Disposable in
-      let req = Alamofire
-        .request(RestService.SearchBook(keyword, page))
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-          switch response.result {
-          case .success(let data):
-            let json = SwiftyJSON.JSON(data)
-            let total = json["total"].intValue
-            let books = Mapper<Book>().mapArray(JSONObject: json["books"].object) ?? []
-            subscriber.onNext((books, total))
-            subscriber.onCompleted()
-          case .failure(let error):
-            subscriber.onError(error)
-          }
-        }
-      
-      return Disposables.create {
-        req.cancel()
-      }
-    }
+    return BookRequest.shared.search(with: keyword, page: page)
   }
 }
 
 extension Book {
   func getNote() -> Observable<String?> {
-    return Observable.create { (subscriber) in
-      DataStoreService.shared.note(
-        id: self.id,
-        text: "",
-        type: .book,
-        op: .find) { (note) in
-          subscriber.onNext(note?.text)
-          subscriber.onCompleted()
-        }
-      
-      return Disposables.create()
-    }
+    return NoteRequest.shared.get(type: .book, id: self.id)
   }
   
   func takeNote(text: String) -> Observable<Note?> {
-    return Observable.create { (subscriber) in
-      DataStoreService.shared.note(
-        id: self.id,
-        text: text,
-        type: .book,
-        op: .upsert) { (note) in
-          subscriber.onNext(note)
-          subscriber.onCompleted()
-        }
-      
-      return Disposables.create()
-    }
+    return NoteRequest.shared.set(type: .book, id: self.id, text: text)
   }
 }

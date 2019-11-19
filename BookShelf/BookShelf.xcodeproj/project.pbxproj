@@ -43,6 +43,12 @@
 		2211ABB0237F13340086C56F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211AB93237EEFB10086C56F /* APIService.swift */; };
 		2211ABB2237F180E0086C56F /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211ABB1237F180D0086C56F /* BookTableViewCell.swift */; };
 		2211ABB6237F243F0086C56F /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211ABB1237F180D0086C56F /* BookTableViewCell.swift */; };
+		225297EF23841C7300946CD1 /* BookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225297EE23841C7300946CD1 /* BookRequest.swift */; };
+		225297F023841C7300946CD1 /* BookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225297EE23841C7300946CD1 /* BookRequest.swift */; };
+		225297F223841E3300946CD1 /* NoteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225297F123841E3300946CD1 /* NoteRequest.swift */; };
+		225297F323841E3300946CD1 /* NoteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225297F123841E3300946CD1 /* NoteRequest.swift */; };
+		225297F52384247800946CD1 /* NoticeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225297F42384247800946CD1 /* NoticeController.swift */; };
+		225297F62384247800946CD1 /* NoticeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225297F42384247800946CD1 /* NoticeController.swift */; };
 		2272FC8F238032AA005A00D3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272FC8E238032AA005A00D3 /* UIView+Extensions.swift */; };
 		2272FC912380337E005A00D3 /* ZoomInOutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272FC902380337E005A00D3 /* ZoomInOutAnimator.swift */; };
 		2272FC9423805192005A00D3 /* currency.json in Resources */ = {isa = PBXBuildFile; fileRef = 2272FC9323805192005A00D3 /* currency.json */; };
@@ -91,6 +97,8 @@
 		227D3C7F2381717E00973E7B /* SearchBooksRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C7D2381717E00973E7B /* SearchBooksRouter.swift */; };
 		227D3C8423819F6E00973E7B /* UITableView+Extenions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */; };
 		227D3C8523819F6E00973E7B /* UITableView+Extenions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */; };
+		227D3C872381AF4700973E7B /* Alamofire+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C862381AF4700973E7B /* Alamofire+Extensions.swift */; };
+		227D3C882381AF4700973E7B /* Alamofire+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D3C862381AF4700973E7B /* Alamofire+Extensions.swift */; };
 		22A8BD592380204900E01CBD /* BookBasicCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD582380204900E01CBD /* BookBasicCellModel.swift */; };
 		22A8BD5B2380236500E01CBD /* BookMiscCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD5A2380236500E01CBD /* BookMiscCell.swift */; };
 		22A8BD5D2380240600E01CBD /* BookMiscCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BD5C2380240600E01CBD /* BookMiscCellModel.swift */; };
@@ -149,6 +157,9 @@
 		2211ABA2237EFD030086C56F /* NewBooksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBooksRouter.swift; sourceTree = "<group>"; };
 		2211ABAB237F0ECC0086C56F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2211ABB1237F180D0086C56F /* BookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
+		225297EE23841C7300946CD1 /* BookRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRequest.swift; sourceTree = "<group>"; };
+		225297F123841E3300946CD1 /* NoteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRequest.swift; sourceTree = "<group>"; };
+		225297F42384247800946CD1 /* NoticeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeController.swift; sourceTree = "<group>"; };
 		2272FC8E238032AA005A00D3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		2272FC902380337E005A00D3 /* ZoomInOutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomInOutAnimator.swift; sourceTree = "<group>"; };
 		2272FC9323805192005A00D3 /* currency.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = currency.json; sourceTree = "<group>"; };
@@ -166,6 +177,7 @@
 		227D3C7A2381717600973E7B /* SearchBooksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksInteractor.swift; sourceTree = "<group>"; };
 		227D3C7D2381717E00973E7B /* SearchBooksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksRouter.swift; sourceTree = "<group>"; };
 		227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extenions.swift"; sourceTree = "<group>"; };
+		227D3C862381AF4700973E7B /* Alamofire+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Extensions.swift"; sourceTree = "<group>"; };
 		22A8BD5623801FED00E01CBD /* BookDetailCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailCellModel.swift; sourceTree = "<group>"; };
 		22A8BD582380204900E01CBD /* BookBasicCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBasicCellModel.swift; sourceTree = "<group>"; };
 		22A8BD5A2380236500E01CBD /* BookMiscCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMiscCell.swift; sourceTree = "<group>"; };
@@ -229,6 +241,7 @@
 		2211AB4E237EEAE80086C56F /* BookShelf */ = {
 			isa = PBXGroup;
 			children = (
+				225297ED23841B7900946CD1 /* Requests */,
 				2272FC922380517E005A00D3 /* Assets */,
 				22A8BD5E2380247900E01CBD /* Utils */,
 				22B56CA7237FC4BE00C430A9 /* Animations */,
@@ -351,6 +364,7 @@
 			children = (
 				2211AB7C237EEB1A0086C56F /* MainTabBarController.swift */,
 				2211ABAB237F0ECC0086C56F /* BaseViewController.swift */,
+				225297F42384247800946CD1 /* NoticeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -363,6 +377,7 @@
 				227D3C6423811D1600973E7B /* Realm+Extensions.swift */,
 				227D3C7123816B8200973E7B /* Rx+Extensions.swift */,
 				227D3C8323819F6E00973E7B /* UITableView+Extenions.swift */,
+				227D3C862381AF4700973E7B /* Alamofire+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -396,6 +411,15 @@
 				227D3C5E23811AD000973E7B /* DataStoreService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		225297ED23841B7900946CD1 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				225297EE23841C7300946CD1 /* BookRequest.swift */,
+				225297F123841E3300946CD1 /* NoteRequest.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		2272FC922380517E005A00D3 /* Assets */ = {
@@ -667,6 +691,7 @@
 				2211AB9F237EFCF10086C56F /* NewBooksInteractor.swift in Sources */,
 				2211AB9C237EFCC10086C56F /* NewBooksPresenter.swift in Sources */,
 				2211AB50237EEAE80086C56F /* AppDelegate.swift in Sources */,
+				225297F223841E3300946CD1 /* NoteRequest.swift in Sources */,
 				22A8BD60238024AC00E01CBD /* CustomTransforms.swift in Sources */,
 				22B56CA0237FBA7800C430A9 /* BookDetailRouter.swift in Sources */,
 				227D3C752381715F00973E7B /* SearchBooksView.swift in Sources */,
@@ -692,7 +717,10 @@
 				2211AB88237EEB1A0086C56F /* String+Extensions.swift in Sources */,
 				227D3C782381716900973E7B /* SearchBooksPresenter.swift in Sources */,
 				227D3C6323811B7600973E7B /* RealmDataSource.swift in Sources */,
+				225297F52384247800946CD1 /* NoticeController.swift in Sources */,
+				227D3C872381AF4700973E7B /* Alamofire+Extensions.swift in Sources */,
 				227D3C6523811D1600973E7B /* Realm+Extensions.swift in Sources */,
+				225297EF23841C7300946CD1 /* BookRequest.swift in Sources */,
 				22B56CA2237FBAD700C430A9 /* Errors.swift in Sources */,
 				227D3C6A238151B100973E7B /* BaseObject.swift in Sources */,
 				2211AB94237EEFB10086C56F /* APIService.swift in Sources */,
@@ -709,10 +737,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2211ABA5237EFDE90086C56F /* NewBooksView.swift in Sources */,
+				227D3C882381AF4700973E7B /* Alamofire+Extensions.swift in Sources */,
 				2211ABB6237F243F0086C56F /* BookTableViewCell.swift in Sources */,
 				227D3C7323816B8200973E7B /* Rx+Extensions.swift in Sources */,
 				2272FC9A23805510005A00D3 /* BookDetailPresenter.swift in Sources */,
 				227D3C792381716900973E7B /* SearchBooksPresenter.swift in Sources */,
+				225297F023841C7300946CD1 /* BookRequest.swift in Sources */,
 				2211ABB0237F13340086C56F /* APIService.swift in Sources */,
 				2211AB91237EEB2A0086C56F /* BookTests.swift in Sources */,
 				227D3C6D238167FB00973E7B /* Note.swift in Sources */,
@@ -723,6 +753,7 @@
 				2272FCA62380557D005A00D3 /* CustomTransforms.swift in Sources */,
 				2272FCA32380552A005A00D3 /* BookMiscCell.swift in Sources */,
 				2211AB9A237EF5A70086C56F /* String+Extensions.swift in Sources */,
+				225297F323841E3300946CD1 /* NoteRequest.swift in Sources */,
 				227D3C8523819F6E00973E7B /* UITableView+Extenions.swift in Sources */,
 				227D3C7C2381717600973E7B /* SearchBooksInteractor.swift in Sources */,
 				22B56CA3237FBAD700C430A9 /* Errors.swift in Sources */,
@@ -748,6 +779,7 @@
 				2272FCA023805522005A00D3 /* BookMiscCellModel.swift in Sources */,
 				2211AB8F237EEB2A0086C56F /* NewBooksTests.swift in Sources */,
 				2211AB92237EEB2A0086C56F /* SearchBooksTests.swift in Sources */,
+				225297F62384247800946CD1 /* NoticeController.swift in Sources */,
 				2211AB98237EF5450086C56F /* SearchBooksProtocol.swift in Sources */,
 				2272FC97238051A6005A00D3 /* Currency.swift in Sources */,
 				2211ABAD237F130A0086C56F /* BaseViewController.swift in Sources */,

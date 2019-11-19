@@ -7,6 +7,15 @@
 //
 
 import RealmSwift
+import RxSwift
+
+protocol Notable {
+  var id: String { get }
+  var type: ProductType { get }
+  
+  func getNote() -> Observable<String?>
+  func takeNote(text: String) -> Observable<Note?>
+}
 
 @objcMembers class Note: BaseObject {
   dynamic var noteId = ""
